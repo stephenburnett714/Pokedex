@@ -1,65 +1,57 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import {useState, useEffect} from 'react'
+import { Card, Col, Row, Container } from "react-bootstrap"
 
-export default function Home() {
+
+
+export default function Home({allPokemon}) {
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Pokedex</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Container>
+      <Row xs={1} sm={2} md={3} lg={4}>
+      {allPokemon.map((pokemon, key) => (
+<div key={key}>
+        <Col >
+        <Card>
+        <Card.Img src={pokemon.image}/>
+      <Card.Text>#{pokemon.indexPokemon}</Card.Text>
+      <Card.Title  className="capital-first">{pokemon.name}</Card.Title>
+      
+      </Card>
+      </Col>
+      </div>
+      ))}
+      </Row>
+      </Container>
+      
+      
+      
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
 }
+
+export const getServerSideProps = async cxt => {
+  let res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=250')
+  let { results } = await res.json()
+let allPokemon = results.map((pokemon, index) => {
+    let indexPokemon = ("00" + (index + 1)).slice(-3)
+    let image = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${indexPokemon}.png`
+  return { ... pokemon,
+            indexPokemon,
+            image,
+          } 
+})
+return {
+  props: {allPokemon}
+}
+}
+
