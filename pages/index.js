@@ -38,11 +38,11 @@ let [nameSearch, setNameSearch] = useState("")
       {searchPokemon.map((pokemon, key) => (
         <div key={key} className="my-2">
 <Col >
-<Link href={`/[id]?id=${pokemon.id}`} as={`/${pokemon.id}`} pokemon={pokemon}>
+<Link href={`/[id]?id=${pokemon.id}`} as={`/${pokemon.id}`}>
           <Card>
           
           <Card.Img src={pokemon.image}/>
-        <Card.Text>#{pokemon.indexPokemon}</Card.Text>
+        <Card.Text>#{pokemon.id}</Card.Text>
         <Card.Title  className="text-center capital-first">{pokemon.name}</Card.Title>
         <div className="flex flex-row justify-center">
         <div >
