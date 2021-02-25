@@ -16,7 +16,7 @@ let [nameSearch, setNameSearch] = useState("")
       setNameSearch(e.target.value);
     };
 
-  let searchPokemon = allPokemon.filter((pokemon) => pokemon.name.includes(nameSearch))
+  let searchPokemon = allPokemon.filter((pokemon) => pokemon.name.toLowerCase().includes(nameSearch.toLowerCase()))
 
 
   return (
@@ -28,12 +28,13 @@ let [nameSearch, setNameSearch] = useState("")
       </Head>
 
       <Container>
+        <div className="flex justify-center logo-spacing"><Image  height={200} width={500} src="/images/pokemon-logo.png"></Image></div>
         <FormControl 
         placeholder="Search"
         onChange={handleChange}
         />
 
-      <Row  xs={1} sm={2} md={3} lg={4} xl={5}>
+      <Row  xs={2} sm={2} md={3} lg={4} xl={5}>
       
       {searchPokemon.map((pokemon, key) => (
         <div key={key} className="my-2">
@@ -47,7 +48,7 @@ let [nameSearch, setNameSearch] = useState("")
         <div className="flex flex-row justify-center">
         <div >
           <Image height={30} width={30} src={`/images/${pokemon.type[0]}.png`} />
-          <Image height={30} width={30} src={`/images/${pokemon.type[1]}.png`} />
+          {pokemon.type[1] ? <Image height={30} width={30} src={`/images/${pokemon.type[1]}.png`} /> : ""}
           </div>
         </div>
         
