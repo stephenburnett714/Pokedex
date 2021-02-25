@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import allPokemon from "./api/pokemonData.json"
 import Image from "next/image"
+import Link from "next/link"
 import { FormControl, Card, Col, Row, Container } from "react-bootstrap"
 
 
@@ -37,6 +38,7 @@ let [nameSearch, setNameSearch] = useState("")
       {searchPokemon.map((pokemon, key) => (
         <div key={key} className="my-2">
 <Col >
+<Link href={`/[id]?id=${pokemon.id}`} as={`/${pokemon.id}`} pokemon={pokemon}>
           <Card>
           
           <Card.Img src={pokemon.image}/>
@@ -50,6 +52,7 @@ let [nameSearch, setNameSearch] = useState("")
         </div>
         
         </Card>
+        </Link>
         </Col>
         </div>
        
