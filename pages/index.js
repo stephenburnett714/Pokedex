@@ -1,33 +1,60 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import {useState, useEffect} from 'react'
-import { Card, Col, Row, Container } from "react-bootstrap"
+import { useState } from 'react'
+import allPokemon from "./api/pokemonData.json"
+import Image from "next/image"
+import { FormControl, Card, Col, Row, Container } from "react-bootstrap"
 
 
 
-export default function Home({allPokemon}) {
+export default function Home() {
+
+let [nameSearch, setNameSearch] = useState("")
+// let [nameSearchPokemon, setNameSearchPokeon] = useState()
+
+    let handleChange = e => {
+      setNameSearch(e.target.value);
+    };
+
+  let searchPokemon = allPokemon.filter((pokemon) => pokemon.name.includes(nameSearch))
+
 
   return (
     <div>
+
       <Head>
         <title>Pokedex</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <Container>
-      <Row xs={1} sm={2} md={3} lg={4}>
-      {allPokemon.map((pokemon, key) => (
-<div key={key}>
-        <Col >
-        <Card>
-        <Card.Img src={pokemon.image}/>
-      <Card.Text>#{pokemon.indexPokemon}</Card.Text>
-      <Card.Title  className="capital-first">{pokemon.name}</Card.Title>
+        <FormControl 
+        placeholder="Search"
+        onChange={handleChange}
+        />
+
+      <Row  xs={1} sm={2} md={3} lg={4} xl={5}>
       
-      </Card>
-      </Col>
-      </div>
+      {searchPokemon.map((pokemon, key) => (
+        <div key={key} className="my-2">
+<Col >
+          <Card>
+          
+          <Card.Img src={pokemon.image}/>
+        <Card.Text>#{pokemon.indexPokemon}</Card.Text>
+        <Card.Title  className="text-center capital-first">{pokemon.name}</Card.Title>
+        <div className="flex flex-row justify-center">
+        <div >
+          <Image height={30} width={30} src={`/images/${pokemon.type[0]}.png`} />
+          <Image height={30} width={30} src={`/images/${pokemon.type[1]}.png`} />
+          </div>
+        </div>
+        
+        </Card>
+        </Col>
+        </div>
+       
       ))}
+      
       </Row>
       </Container>
       
@@ -39,19 +66,21 @@ export default function Home({allPokemon}) {
   )
 }
 
-export const getServerSideProps = async cxt => {
-  let res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=250')
-  let { results } = await res.json()
-let allPokemon = results.map((pokemon, index) => {
-    let indexPokemon = ("00" + (index + 1)).slice(-3)
-    let image = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${indexPokemon}.png`
-  return { ... pokemon,
-            indexPokemon,
-            image,
-          } 
-})
-return {
-  props: {allPokemon}
-}
-}
+// export const getServerSideProps = async cxt => {
+//   let  res = pokemonApi
+//   let allPokemon = res.slice(0, 809).map((pokemon, index) => {
+    
+//         let id = newApi[index].id
+//         let base = newApi[index].base
+//         let type = newApi[index].type
+//   return { ... pokemon,
+//           id,
+//           base,
+//           type,
+//           } 
+// })
+// return {
+//   props: {allPokemon}
+// }
+// }
 
