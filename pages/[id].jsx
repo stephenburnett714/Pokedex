@@ -21,8 +21,8 @@ export default function id({ pokemon }) {
         <Link href="/">
           <div className="flex justify-center logo-spacing">
             <Image
-              height={200}
-              width={500}
+              height={150}
+              width={350}
               src="/images/pokemon-logo.png"
             ></Image>
           </div>
