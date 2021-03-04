@@ -11,6 +11,7 @@ export default function id({ pokemon }) {
   let maxSpAttack = 180;
   let maxSpDefense = 230;
   let maxSpeed = 180;
+
   return (
     <div>
       <Head>
@@ -21,14 +22,14 @@ export default function id({ pokemon }) {
         <Link href="/">
           <div className="flex justify-center logo-spacing">
             <Image
-              height={150}
-              width={350}
+              height={100}
+              width={300}
               src="/images/pokemon-logo.png"
             ></Image>
           </div>
         </Link>
         <div className="capital-first pokemon-font pokemon-header text-center">
-          {pokemon.name}
+          {`#${pokemon.id} ${pokemon.name}`}
         </div>
 
         <div className="flex flex-row justify-center">
@@ -123,10 +124,18 @@ export default function id({ pokemon }) {
             </Col>
           </Row>
         </div>
+        <div>
         <div className="flex justify-center py-2">
-          <Link href="/" className="text-center flex justify-items-center">
-            <Button>Back</Button>
+          <Link href={`/${pokemon.id - 1}`} >
+            <Button variant="secondary">{`#${pokemon.id -1}`}</Button>
           </Link>
+          <Link href="/">
+            <Button className="mx-2">Back to Search</Button>
+          </Link>
+          <Link href={`/${pokemon.id + 1}`}>
+            <Button variant="secondary">{`#${pokemon.id +1}`}</Button>
+          </Link>
+        </div>
         </div>
       </Container>
     </div>

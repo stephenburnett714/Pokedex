@@ -8,20 +8,6 @@ import { FormControl, Card, Col, Row, Container } from "react-bootstrap";
 export default function Home() {
   let [nameSearch, setNameSearch] = useState("");
   let [elementFilter, setElementFilter] = useState([]);
-  let [offset, setOffset] = useState(0);
-  let [searchBarLocation, setSearchBarLocation] = useState(0);
-
-  let inputRef = useRef()
-
-  useEffect(() => {
-    window.onscroll = () => {
-      setOffset(window.pageYOffset)
-    }
-  }, []);
-
-
-console.log(offset)
-console.log(searchBarLocation)
 
   let handleChange = (e) => {
     setNameSearch(e.target.value);
@@ -71,8 +57,8 @@ console.log(searchBarLocation)
           <div className="fixed flex flex-col bg-white w-full max-height-40 ">
             <div className="flex justify-center">
           <Image
-            height={150}
-            width={350}
+            height={100}
+            width={250}
             src="/images/pokemon-logo.png"
           ></Image>
           </div>
