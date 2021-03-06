@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { useState, useEffect, useRef } from "react";
-import allPokemon from "./api/pokemonData.json";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import allPokemon from "./api/pokemonData.json";
 import { FormControl, Card, Col, Row, Container } from "react-bootstrap";
 
 export default function Home() {
@@ -54,14 +54,12 @@ export default function Home() {
 
       <Container>
         <div className="flex justify-center logo-spacing">
-          <div className="fixed flex flex-col bg-white w-full max-height-40 ">
-            <div className="flex justify-center">
-          <Image
-            height={100}
-            width={250}
-            src="/images/pokemon-logo.png"
-          ></Image>
-          </div>
+        <div className="fixed flex flex-col bg-white w-full max-height-40 ">
+        <div className="flex justify-center">
+      <Link href="/">
+        <Image height={100} width={250} src="/images/pokemon-logo.png"/>
+      </Link>
+    </div>
         <Row>
           <Col></Col>
           <Col className="col-6 pt-4">
@@ -78,8 +76,8 @@ export default function Home() {
               <div key={key} className="my-2">
                 <Col>
                   <Link href={`/[id]?id=${pokemon.id}`} as={`/${pokemon.id}`}>
-                    <Card className="cursor-pointer">
-                      <Card.Img src={pokemon.image} />
+                    <Card className="cursor-pointer drop-shadow">
+                      <Card.Img src={pokemon.id <= 720 ? `/images/pokemon-images/${pokemon.id}.png` : pokemon.image}/>
                       <Card.Text>#{pokemon.id}</Card.Text>
                       <Card.Title className="text-center capital-first">
                         {pokemon.name}

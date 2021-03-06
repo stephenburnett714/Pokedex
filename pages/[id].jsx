@@ -1,8 +1,9 @@
-import pokemonJSON from "./api/pokemonData.json";
-import { ProgressBar, Col, Row, Container, Button } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+import pokemonJSON from "./api/pokemonData.json";
+import { ProgressBar, Col, Row, Container, Button, ButtonGroup } from "react-bootstrap";
+import { ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
 
 export default function id({ pokemon }) {
   let maxHP = 255;
@@ -19,23 +20,20 @@ export default function id({ pokemon }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <Link href="/">
-          <div className="flex justify-center logo-spacing">
-            <Image
-              height={100}
-              width={300}
-              src="/images/pokemon-logo.png"
-            ></Image>
-          </div>
-        </Link>
+      <div className="flex justify-center">
+      <Link href="/">
+        <Image height={100} width={250} src="/images/pokemon-logo.png"/>
+      </Link>
+    </div>
         <div className="capital-first pokemon-font pokemon-header text-center">
-          {`#${pokemon.id} ${pokemon.name}`}
+          {pokemon.name}
         </div>
 
         <div className="flex flex-row justify-center">
           <Row xs={1} sm={2}>
             <Col className="flex space-around">
               <div className="flex flex-col place-content-center">
+              <div className="text-center pokemon-font pt-4 font-22">{`# ${pokemon.id}`}</div>
                 <img height={300} width={300} src={pokemon.image} />
 
                 <div className="flex justify-center flex-col">
@@ -44,6 +42,7 @@ export default function id({ pokemon }) {
                     {pokemon.type[1] ? `, ${pokemon.type[1]}` : ""}
                   </div>
                   <div className="flex justify-center flex-row">
+                    
                     <Image
                       height={50}
                       width={50}
@@ -64,7 +63,7 @@ export default function id({ pokemon }) {
             </Col>
             <Col>
               <div className="flex flex-col justify-center py-2">
-                <div className="text-center pokemon-font pt-4">Stats</div>
+                <div className="text-center pokemon-font pt-4 font-22">Stats</div>
                 <div className="py-2">
                   {`HP: ${pokemon.base.HP}/${maxHP}`}{" "}
                   <ProgressBar
@@ -126,15 +125,17 @@ export default function id({ pokemon }) {
         </div>
         <div>
         <div className="flex justify-center py-2">
+          <ButtonGroup>
           <Link href={`/${pokemon.id - 1}`} >
-            <Button variant="secondary">{`#${pokemon.id -1}`}</Button>
+            <Button><ArrowLeft /> {`#${pokemon.id -1}`}</Button>
           </Link>
           <Link href="/">
-            <Button className="mx-2">Back to Search</Button>
+            <Button variant="secondary">Back to Search</Button>
           </Link>
           <Link href={`/${pokemon.id + 1}`}>
-            <Button variant="secondary">{`#${pokemon.id +1}`}</Button>
+            <Button>{`#${pokemon.id +1}`} <ArrowRight /></Button>
           </Link>
+          </ButtonGroup>
         </div>
         </div>
       </Container>

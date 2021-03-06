@@ -122,12 +122,20 @@ justify-content: space-around;
   top: 0;
 }
 
+.font-22 {
+  font-size: 22px;
+}
+
 .max-height-40 {
   max-height: 40%
 }
 
 .index-padding-top {
   padding-top: 55%;
+}
+
+.drop-shadow{
+  filter: drop-shadow(10px 10px 4px rgba(105, 104, 104, 0.267));
 }
 
 @media only screen and (min-width: 350px) {
